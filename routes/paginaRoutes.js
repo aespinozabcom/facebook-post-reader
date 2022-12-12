@@ -1,10 +1,18 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
+const {
+  listarPagina,
+  buscarPaginaXId,
+  crearPagina,
+  editarPagina,
+  desactivarPagina,
+  activarPagina,
+} = require("../controllers/paginaController");
 
 const router = Router();
 
 //Listar roles
-router.get("/");
+router.get("/", listarPagina);
 
 //Buscar rol x Id
 router.get(
@@ -12,8 +20,8 @@ router.get(
   [
     check("id", "La id es obligatoria").not().isEmpty(),
     check("id", "El id es obligatorio").isMongoId(),
-  ]
-  //   buscarApiController
+  ],
+  buscarPaginaXId
 );
 
 //Crear rol
@@ -24,8 +32,11 @@ router.post(
     check("descripcion", "La descripcion debe ser un string").isString(),
     check("url", "La url es obligatoria").not().isEmpty(),
     check("url", "La url debe ser un string").isURL(),
+    check("pageId", "El pageId es obligatorio").not().isEmpty(),
+    check("pageId", "El pageId debe ser un string").isString(),
     // validarApiDuplicado,
-  ]
+  ],
+  crearPagina
   //   crearApi
 );
 
@@ -39,7 +50,10 @@ router.put(
     check("descripcion", "La descripcion debe ser un string").isString(),
     check("url", "La url es obligatoria").not().isEmpty(),
     check("url", "La url debe ser un string").isURL(),
-  ]
+    check("pageId", "El pageId es obligatorio").not().isEmpty(),
+    check("pageId", "El pageId debe ser un string").isString(),
+  ],
+  editarPagina
   //   editarApi
 );
 
@@ -50,7 +64,8 @@ router.delete(
     check("id", "La id es obligatoria").not().isEmpty(),
     check("id", "El id es obligatorio").isMongoId(),
     // check("id").custom(existeApi),
-  ]
+  ],
+  desactivarPagina
   //   desactivarApi
 );
 
@@ -60,7 +75,8 @@ router.get(
     check("id", "La id es obligatoria").not().isEmpty(),
     check("id", "El id es obligatorio").isMongoId(),
     // check("id").custom(existeApi),
-  ]
+  ],
+  activarPagina
   //   activarApi
 );
 

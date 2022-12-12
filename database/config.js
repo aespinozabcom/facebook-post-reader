@@ -2,6 +2,7 @@ const moongose = require("mongoose");
 
 const dbConnection = async () => {
   try {
+    await moongose.set("strictQuery", false);
     //Conectarse a mongo atlas
     await moongose.connect(process.env.MONGODB_CNN, {
       useNewUrlParser: true,

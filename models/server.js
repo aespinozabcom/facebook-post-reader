@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { dbConnection } = require("../database/config");
+const paginaRoutes = require("../routes/paginaRoutes");
 
 class Server {
   constructor() {
@@ -9,7 +10,7 @@ class Server {
     this.port = process.env.PORT;
 
     this.path = {
-      pais: "/api/pais",
+      pagina: "/api/pagina",
     };
 
     this.dbConnect();
@@ -36,7 +37,7 @@ class Server {
   }
 
   rutas() {
-    // this.app.use(this.path.pais, paisRoutes);
+    this.app.use(this.path.pagina, paginaRoutes);
   }
 
   async dbConnect() {
